@@ -14,6 +14,7 @@ pygame.display.set_caption("Гра Пінг Понг, Автор: Ira")
 #                   (width,height)
 #                   ) 
 background_color = (204, 255, 153)
+pygame.font.init()
 
 class GameSprite(pygame.sprite.Sprite):
     def __init__(self, image, x, y, speed, size):
@@ -60,38 +61,61 @@ speed_y = 5
 game_over = False
 finish = False
 
+font_2 = pygame.font.Font(None,75)
+
+
 while not game_over:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game_over = True
+    if not finish:
 
-    window.fill(background_color)
+        window.fill(background_color)
 
-    ball.rect.x += speed_x
-    ball.rect.y += speed_y
+        score_1_text = font_2.render(str(score_1), True, (0,0,0))
+        score_2_text = font_2.render(str(score_2), True, (0,0,0))
 
-    if ball.rect.y > height-50 or ball.rect.y < 0:
-        speed_y *= -1
-    if pygame.sprite.collide_rect(ball, racket_1) or pygame.sprite.collide_rect(ball, racket_2):
-        speed_x *= -1
+        window.blit(score_1_text, (100,100))
+        window.blit(score_2_text, (width-100,100))
 
-    if ball.rect.x > width-50:
-        score_1 += 1
-        ball.rect.x = width/2
-        ball.rect.y = height/2
-    if ball.rect.x < 0:
-        score_2 += 1
-        ball.rect.x = width/2
-        ball.rect.y = height/2
+        ball.rect.x += speed_x
+        ball.rect.y += speed_y
 
-    
-    ball.reset()
+        if ball.rect.y > height-50 or ball.rect.y < 0:
+            speed_y *= -1
+        if pygame.sprite.collide_rect(ball, racket_1) or pygame.sprite.collide_rect(ball, racket_2):
+            speed_x *= -1
 
-    racket_1.reset()
-    racket_2.reset()
+        if ball.rect.x > width-50:
+            score_1 += 1
+            ball.rect.x = width/2
+            ball.rect.y = height/2
 
-    racket_1.update_l()
-    racket_2.update_r()
+        if ball.rect.x < 0:
+            score_2 += 1
+            ball.rect.x = width/2
+            ball.rect.y = height/2
+
+        if score_1 >=5:
+            font_1 = pygame.font.Font(None, 50)
+            text_win = font_1.render("Переміг гравець 1", True, (0,0,0))
+            window.blit(text_win, (width/2-130, height/2-40))
+            finish = True
+        
+        if score_2 >=5:
+            font_2 = pygame.font.Font(None, 50)
+            text_win = font_2.render("Переміг гравець 2", True, (0,0,0))
+            window.blit(text_win, (width/2-130, height/2-40))
+            finish = True
+        
+        
+        ball.reset()
+
+        racket_1.reset()
+        racket_2.reset()
+
+        racket_1.update_l()
+        racket_2.update_r()
 
 
     pygame.display.update()
