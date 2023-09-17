@@ -9,10 +9,10 @@ clock = pygame.time.Clock()
 
 pygame.display.set_caption("Гра Пінг Понг, Автор: Ira")
 
-# background = pygame.transform.scale(
-#                    .image.load("..."),
-#                   (width,height)
-#                   ) 
+background = pygame.transform.scale(
+                    pygame.image.load("fiield.png"),
+                   (width,height)
+                   ) 
 background_color = (204, 255, 153)
 pygame.font.init()
 
@@ -70,7 +70,8 @@ while not game_over:
             game_over = True
     if not finish:
 
-        window.fill(background_color)
+        #window.fill(background_color)
+        window.blit(background,(0,0))
 
         score_1_text = font_2.render(str(score_1), True, (0,0,0))
         score_2_text = font_2.render(str(score_2), True, (0,0,0))
