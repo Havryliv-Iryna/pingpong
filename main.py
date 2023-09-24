@@ -35,16 +35,16 @@ class GameSprite(pygame.sprite.Sprite):
 class Player (GameSprite):
     def update_r(self):
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_UP]:
+        if keys[pygame.K_UP] and self.rect.y >5 :
             self.rect.y -= self.speed
-        if keys[pygame.K_DOWN]:
+        if keys[pygame.K_DOWN] and self.rect.y < height-100 :
             self.rect.y += self.speed 
 
     def update_l(self):
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_w]:
+        if keys[pygame.K_w] and self.rect.y >5:
             self.rect.y -= self.speed
-        if keys[pygame.K_s]:
+        if keys[pygame.K_s] and sekf.rect.y < height-100:
             self.rect.y += self.speed 
 
 ball = GameSprite ("boll.png", width/2, height/2, 0, (50,50))
